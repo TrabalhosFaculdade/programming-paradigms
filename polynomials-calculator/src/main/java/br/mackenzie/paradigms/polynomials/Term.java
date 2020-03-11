@@ -2,7 +2,7 @@ package br.mackenzie.paradigms.polynomials;
 
 import java.util.Objects;
 
-public class Term implements Cloneable {
+public class Term {
 
     private Double coefficient;
     private Integer exponent;
@@ -38,14 +38,17 @@ public class Term implements Cloneable {
         this.coefficient += other.getCoefficient();
     }
 
-
+    public Term clone() {
+        return new Term(coefficient, exponent);
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Term term = (Term) o;
-        return Objects.equals(coefficient, term.coefficient) && Objects.equals(exponent, term.exponent);
+        return Objects.equals(coefficient, term.coefficient) &&
+                Objects.equals(exponent, term.exponent);
     }
 
     @Override

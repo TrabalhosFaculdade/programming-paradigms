@@ -20,6 +20,13 @@ public class Polynomial {
         initializeTermsFromCoefficients(degree, coefficients);
     }
 
+    /**
+     * Used when creating a copy of a Polynomial object
+     * */
+    private Polynomial (Deque<Term> terms) {
+        this.terms = terms;
+    }
+
     public Double value (int x) {
 
         Double result = 0D;
@@ -46,30 +53,19 @@ public class Polynomial {
         }
     }
 
-    private void append (Term term) {
-
-        if (!isValidForCurrentPolynomial(term)) {
-
-            throw new IllegalArgumentException(
-                    "Attempt of adding term with a " +
-                    "higher exponent than last term added.");
-        }
-
-        terms.push(term);
-    }
-
     public void add (Polynomial polynomial) {
 
         Objects.requireNonNull(polynomial);
 
-        //TODO create a copy of the polynomials before proceeding
-
+        //copy of polynomial on top of which we will operate because
+        //we dont want to change our original argument
+        Polynomial otherPolynomial = polynomial.deepCopy();
         Deque<Term> resultingTerms = new LinkedList<>();
 
-        while (!terms.isEmpty() && !polynomial.terms.isEmpty()) {
+        while (!terms.isEmpty() && !otherPolynomial.terms.isEmpty()) {
 
             Optional<Term> currentPolynomialTerm = Optional.ofNullable(terms.peekFirst());
-            Optional<Term> otherPolynomialTerm = Optional.ofNullable(polynomial.terms.peekFirst());
+            Optional<Term> otherPolynomialTerm = Optional.ofNullable(otherPolynomial.terms.peekFirst());
 
             if (currentPolynomialTerm.isPresent() && otherPolynomialTerm.isPresent()) {
 
@@ -82,7 +78,7 @@ public class Polynomial {
                     resultingTerms.push(current);
 
                     terms.removeFirst();
-                    polynomial.terms.removeFirst();
+                    otherPolynomial.terms.removeFirst();
 
                 } else if (current.getExponent() > other.getExponent()) {
                     //the current term is bigger, and there is not
@@ -94,7 +90,7 @@ public class Polynomial {
                 } else {
                     //the same thing as above if, but with the other polynomial term
                     resultingTerms.push(other);
-                    polynomial.terms.removeFirst();
+                    otherPolynomial.terms.removeFirst();
                 }
 
             } else if (otherPolynomialTerm.isEmpty() && currentPolynomialTerm.isPresent()) {
@@ -109,19 +105,30 @@ public class Polynomial {
                 Term otherTerm = otherPolynomialTerm.get();
 
                 resultingTerms.push(otherTerm);
-                polynomial.terms.removeFirst();
+                otherPolynomial.terms.removeFirst();
             }
         }
 
         this.terms = resultingTerms;
     }
 
+    private void append (Term term) {
+
+        if (!isValidForCurrentPolynomial(term)) {
+
+            throw new IllegalArgumentException(
+                    "Attempt of adding term with a " +
+                            "higher exponent than last term added.");
+        }
+
+        terms.push(term);
+    }
+
     private boolean isValidForCurrentPolynomial (Term term) {
 
-        //validating for term degree when adding to polynomial
+        //validating for term degree when adding to polynomial.
         //current term degree cannot be higher than last one added
-        //for example: 2x^3 + x^2, attempting adding x^3 is not
-        //valid for current expression
+        //for example: 2x^3 + x^2, attempting adding x^3 is not valid
 
         //peek will return null if empty queue
         Optional<Term> possibleLastTerm = Optional.ofNullable(terms.peek());
@@ -132,5 +139,16 @@ public class Polynomial {
 
         //queue is empty, hence, any coefficient value will be acceptable
         return true;
+    }
+
+    private Polynomial deepCopy() {
+
+        Deque<Term> newTerms = new LinkedList<>();
+
+        for (Term term : terms) {
+            terms.add(term.clone());
+        }
+
+        return new Polynomial(newTerms);
     }
 }
