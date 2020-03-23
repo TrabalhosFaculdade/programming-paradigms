@@ -59,7 +59,7 @@ public class Polynomial {
 
         //copy of polynomial on top of which we will operate because
         //we dont want to change our original argument
-        Polynomial otherPolynomial = polynomial.deepCopy();
+        Polynomial otherPolynomial = polynomial.copy();
         Deque<Term> resultingTerms = new LinkedList<>();
 
         while (!terms.isEmpty() && !otherPolynomial.terms.isEmpty()) {
@@ -141,12 +141,12 @@ public class Polynomial {
         return true;
     }
 
-    private Polynomial deepCopy() {
+    private Polynomial copy() {
 
         Deque<Term> newTerms = new LinkedList<>();
 
         for (Term term : terms) {
-            terms.add(term.clone());
+            terms.add(term.copy());
         }
 
         return new Polynomial(newTerms);

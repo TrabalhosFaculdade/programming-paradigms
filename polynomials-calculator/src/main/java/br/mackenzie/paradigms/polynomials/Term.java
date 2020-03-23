@@ -38,7 +38,7 @@ public class Term {
         this.coefficient += other.getCoefficient();
     }
 
-    public Term clone() {
+    public Term copy() {
         return new Term(coefficient, exponent);
     }
 
