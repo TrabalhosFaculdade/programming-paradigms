@@ -93,7 +93,7 @@ public class Polynomial {
                     otherPolynomial.terms.removeFirst();
                 }
 
-            } else if (otherPolynomialTerm.isEmpty() && currentPolynomialTerm.isPresent()) {
+            } else if (!otherPolynomialTerm.isPresent() && currentPolynomialTerm.isPresent()) {
 
                 Term currentTerm = currentPolynomialTerm.get();
 
