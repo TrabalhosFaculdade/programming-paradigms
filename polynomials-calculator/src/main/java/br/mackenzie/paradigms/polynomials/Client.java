@@ -30,7 +30,8 @@ public class Client {
             else this.menuChoice = 0;
         } while (notValid());
 
-        s.close();
+        // Closing the scanner causes the reprocessing to stop working
+        // s.close();
     }
 
     public void selectPolynomialFunction() {
