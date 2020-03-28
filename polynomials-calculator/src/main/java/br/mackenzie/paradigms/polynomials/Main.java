@@ -17,11 +17,13 @@ public class Main {
         String unsigned = UNSIGNED_FORMAT.format(-1);
         String unsignedPositive = UNSIGNED_FORMAT.format(1);
 
-        System.out.println(signed);
-        System.out.println(signedPositive);
-        System.out.println(unsigned);
-        System.out.println(unsignedPositive);
+        // System.out.println(signed);
+        // System.out.println(signedPositive);
+        // System.out.println(unsigned);
+        // System.out.println(unsignedPositive);
 
+        Client client = new Client();
+        client.printMenu();
 
     }
 
