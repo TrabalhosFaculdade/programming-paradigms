@@ -25,13 +25,13 @@ public class Term {
         return exponent;
     }
 
-    public Double value (Integer variableValue) {
+    public Double value (Double variableValue) {
         return coefficient * Math.pow(variableValue, exponent);
     }
 
     public void add (Term other) {
 
-        if (other.getExponent().equals(this.getExponent())) {
+        if (!other.getExponent().equals(this.getExponent())) {
             throw new IllegalArgumentException("Attempt of adding two terms with different exponents");
         }
 
@@ -54,5 +54,10 @@ public class Term {
     @Override
     public int hashCode() {
         return Objects.hash(coefficient, exponent);
+    }
+
+    @Override
+    public String toString() {
+        return coefficient + "x ^ " + exponent;
     }
 }

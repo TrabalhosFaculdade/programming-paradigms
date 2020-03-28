@@ -1,6 +1,10 @@
 package br.mackenzie.paradigms.polynomials;
 
-import java.util.*;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class Polynomial {
 
@@ -27,7 +31,7 @@ public class Polynomial {
         this.terms = terms;
     }
 
-    public Double value (int x) {
+    public Double value (Double x) {
 
         Double result = 0D;
 
@@ -36,21 +40,6 @@ public class Polynomial {
         }
 
         return result;
-    }
-
-    private void initializeTermsFromCoefficients(Integer degree, List<Double> coefficients) {
-
-        terms = new LinkedList<>();
-
-        //using exponent as index on the coefficients list
-        for (int exponent = degree; exponent >= 0; exponent--) {
-
-            Double coefficient = coefficients.get(exponent);
-            if (coefficient == 0) continue; //just ignoring, the value of the term would be 0
-
-            Term term = new Term(coefficient, exponent);
-            append(term);
-        }
     }
 
     public void add (Polynomial polynomial) {
@@ -75,7 +64,7 @@ public class Polynomial {
                 if (current.getExponent().equals(other.getExponent())) {
                     //equals, creating new terms with sum and adding it to new queue
                     current.add(other);
-                    resultingTerms.push(current);
+                    resultingTerms.addLast(current);
 
                     terms.removeFirst();
                     otherPolynomial.terms.removeFirst();
@@ -84,12 +73,12 @@ public class Polynomial {
                     //the current term is bigger, and there is not
                     //match to it on the other polynomial terms
                     //adding it plainly to new queue
-                    resultingTerms.push(current);
+                    resultingTerms.addLast(current);
                     terms.removeFirst();
 
                 } else {
                     //the same thing as above if, but with the other polynomial term
-                    resultingTerms.push(other);
+                    resultingTerms.addLast(other);
                     otherPolynomial.terms.removeFirst();
                 }
 
@@ -112,6 +101,21 @@ public class Polynomial {
         this.terms = resultingTerms;
     }
 
+    private void initializeTermsFromCoefficients(Integer degree, List<Double> coefficients) {
+
+        terms = new LinkedList<>();
+
+        //using exponent as index on the coefficients list
+        for (int exponent = degree; exponent >= 0; exponent--) {
+
+            Double coefficient = coefficients.get(exponent);
+            if (coefficient == 0) continue; //just ignoring, the value of the term would be 0
+
+            Term term = new Term(coefficient, exponent);
+            append(term);
+        }
+    }
+
     private void append (Term term) {
 
         if (!isValidForCurrentPolynomial(term)) {
@@ -121,7 +125,7 @@ public class Polynomial {
                             "higher exponent than last term added.");
         }
 
-        terms.push(term);
+        terms.addLast(term);
     }
 
     private boolean isValidForCurrentPolynomial (Term term) {
@@ -146,7 +150,7 @@ public class Polynomial {
         Deque<Term> newTerms = new LinkedList<>();
 
         for (Term term : terms) {
-            terms.add(term.copy());
+            newTerms.add(term.copy());
         }
 
         return new Polynomial(newTerms);

@@ -11,16 +11,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // String signed = SIGNED_FORMAT.format(-1);
-        // String signedPositive = SIGNED_FORMAT.format(1);
+        Polynomial first = new Polynomial(1, Arrays.asList(2d, 2d));
+        Polynomial second = new Polynomial(3, Arrays.asList(-1d, -1d, 0d, 1d));
 
-        // String unsigned = UNSIGNED_FORMAT.format(-1);
-        // String unsignedPositive = UNSIGNED_FORMAT.format(1);
-
-        // System.out.println(signed);
-        // System.out.println(signedPositive);
-        // System.out.println(unsigned);
-        // System.out.println(unsignedPositive);
+        first.add(second);
 
         Client client = new Client();
         do {
