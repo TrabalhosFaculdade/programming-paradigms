@@ -25,17 +25,30 @@ public class Term {
         return exponent;
     }
 
-    public Double value (Double variableValue) {
+    public Double value(Double variableValue) {
         return coefficient * Math.pow(variableValue, exponent);
     }
 
-    public void add (Term other) {
+    public Term add(Term other) {
+
+        Objects.requireNonNull(other);
 
         if (!other.getExponent().equals(this.getExponent())) {
             throw new IllegalArgumentException("Attempt of adding two terms with different exponents");
         }
 
-        this.coefficient += other.getCoefficient();
+        Double resultingCoefficient = this.coefficient + other.getCoefficient();
+        return new Term(resultingCoefficient, this.getExponent());
+    }
+
+    public Term multiply(Term other) {
+
+        Objects.requireNonNull(other);
+
+        Double resultingCoefficient = this.getCoefficient() * other.getCoefficient();
+        Integer resultingExponent = this.getExponent() + other.getExponent();
+
+        return new Term(resultingCoefficient, resultingExponent);
     }
 
     public Term copy() {
