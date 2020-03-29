@@ -16,9 +16,7 @@ public class Client {
         return true;
     }
 
-    public void printMenu() {
-        Scanner s = new Scanner(System.in);
-
+    public void printMenu(Scanner s) {
         System.out.println("1- Calcular polinomio");
         System.out.println("2-  Soma de dois polinomios");
         System.out.println("3-  Multiplicacao de dois polinomios");
@@ -29,9 +27,6 @@ public class Client {
             if(s.hasNextInt()) this.menuChoice = s.nextInt();
             else this.menuChoice = 0;
         } while (notValid());
-
-        // Closing the scanner causes the reprocessing to stop working
-        // s.close();
     }
 
     public void selectPolynomialFunction() {
