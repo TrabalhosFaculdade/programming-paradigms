@@ -14,12 +14,14 @@ public class Main {
         //TODO just testing, to be removed when client is integrated
         testAddition();
         testMultiplication();
+        testCalculate();
+
     }
 
     private static void testAddition() {
 
-        Polynomial first = new Polynomial(1, Arrays.asList(1D, 1D));
-        Polynomial second = new Polynomial(1, Arrays.asList(1D, 1D));
+        Polynomial first = new Polynomial(1, Arrays.asList(3D, 3D));
+        Polynomial second = new Polynomial(1, Arrays.asList(-5D, 4D));
         System.out.println(String.format("(%s) + (%s)", first, second));
 
         first.add(second);
@@ -28,12 +30,20 @@ public class Main {
 
     private static void testMultiplication() {
 
-        Polynomial first = new Polynomial(1, Arrays.asList(1D, 1D));
-        Polynomial second = new Polynomial(1, Arrays.asList(1D, 1D));
+        Polynomial first = new Polynomial(1, Arrays.asList(2D, 3D));
+        Polynomial second = new Polynomial(1, Arrays.asList(-4D, 4D));
         System.out.println(String.format("(%s) * (%s)", first, second));
 
         first.multiplyBy(second);
         System.out.println(String.format("Result = %s\n", first));
+    }
+
+    private static void testCalculate(){
+
+        Polynomial first = new Polynomial(2,Arrays.asList(2D, 3D, 2D));
+        Double result = first.value(3D);
+
+        System.out.println(String.format("Result = %s\n", result));
     }
 
 
