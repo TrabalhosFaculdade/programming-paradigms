@@ -17,10 +17,10 @@ public class Client {
     }
 
     public void printMenu(Scanner s) {
-        System.out.println("1- Calcular polinomio");
-        System.out.println("2-  Soma de dois polinomios");
-        System.out.println("3-  Multiplicacao de dois polinomios");
-        System.out.println("4-  Sair do programa");
+        System.out.println("1 - Calcular polinomio");
+        System.out.println("2 -  Soma de dois polinomios");
+        System.out.println("3 -  Multiplicacao de dois polinomios");
+        System.out.println("4 -  Sair do programa");
 
         do {
             System.out.println("Escolha uma opcao entre 1 a 4");

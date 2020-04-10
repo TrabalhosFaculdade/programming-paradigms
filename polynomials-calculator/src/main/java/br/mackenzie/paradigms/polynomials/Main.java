@@ -1,7 +1,6 @@
 package br.mackenzie.paradigms.polynomials;
 
-import java.util.*;
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
 
@@ -15,34 +14,4 @@ public class Main {
 
         s.close();
     }
-
-    private static void testAddition() {
-
-        Polynomial first = new Polynomial(1, Arrays.asList(1D, 1D));
-        Polynomial second = new Polynomial(1, Arrays.asList(1D, 1D));
-        System.out.println(String.format("(%s) + (%s)", first, second));
-
-        first.add(second);
-        System.out.println(String.format("Result = %s\n", first));
-    }
-
-    private static void testMultiplication() {
-
-        Polynomial first = new Polynomial(1, Arrays.asList(1D, 1D));
-        Polynomial second = new Polynomial(1, Arrays.asList(1D, 1D));
-        System.out.println(String.format("(%s) * (%s)", first, second));
-
-        first.multiplyBy(second);
-        System.out.println(String.format("Result = %s\n", first));
-    }
-
-    private static void testCalculate(){
-
-        Polynomial first = new Polynomial(2,Arrays.asList(2D, 3D, 2D));
-        Double result = first.value(3D);
-
-        System.out.println(String.format("Result = %s\n", result));
-    }
-
-
 }
