@@ -18,6 +18,23 @@ public class Point {
         return y;
     }
 
+    public int numberOfDimensions () {
+        return 2; // to be overridden if necessary
+    }
+
+    public double distanceTo (Point point) {
+
+        if (point.numberOfDimensions() != 2) {
+            throw new UnsupportedOperationException(
+                    "Attempt of comparing a point in a " +
+                    "different dimension to a 2d point");
+        }
+
+        return Math.sqrt(
+                Math.pow(getX() - point.getX(), 2) +
+                Math.pow(getY() - point.getY(), 2));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
